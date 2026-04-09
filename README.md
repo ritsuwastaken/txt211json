@@ -1,8 +1,8 @@
-# examples/txt211json
+# txt211json
 
 A tool for merging Lineage II C1 item and skill data with names and descriptions, then exporting the result to JSON.
 
-### [Download](https://github.com/ritsuwastaken/open-l2encdec/releases/latest)
+### [Download](https://github.com/ritsuwastaken/txt211json/releases/latest)
 
 ## Usage
 

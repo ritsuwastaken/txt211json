@@ -10,18 +10,16 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(${PROJECT_NAME} src/main.cpp src/utf.cpp src/normalize.cpp src/json.cpp)
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 
-if(NOT L2ENCDEC_DIR)
-    set(L2ENCDEC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-    add_subdirectory(${L2ENCDEC_DIR} ${CMAKE_CURRENT_BINARY_DIR}/l2encdec)
-endif()
-
+fetchcontent_declare(
+    l2encdec
+    GIT_REPOSITORY https://github.com/ritsuwastaken/open-l2encdec.git
+    GIT_TAG 1.3.5
+)
 fetchcontent_declare(
     json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
     GIT_TAG v3.12.0
 )
-fetchcontent_makeavailable(json)
-
 # not the intended way to install utfcpp, but it works for this version
 fetchcontent_declare(
     utfcpp
@@ -30,7 +28,7 @@ fetchcontent_declare(
 )
 set(UTF8_TESTS OFF CACHE BOOL "" FORCE)
 set(UTF8_SAMPLES OFF CACHE BOOL "" FORCE)
-fetchcontent_makeavailable(utfcpp)
+fetchcontent_makeavailable(l2encdec json utfcpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE l2encdec nlohmann_json::nlohmann_json)
 target_include_directories(${PROJECT_NAME} PRIVATE ${utfcpp_SOURCE_DIR}/source)
